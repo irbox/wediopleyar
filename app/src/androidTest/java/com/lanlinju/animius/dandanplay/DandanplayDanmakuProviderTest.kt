@@ -11,7 +11,7 @@ class DandanplayDanmakuProviderTest {
     @Test
     fun testFetchTVDanmakuSession() = runBlocking {
 
-        val session = provider.fetch("海贼王", "第11话")
+        val session = provider.fetch("One Piece", "Episode 11")
 
         assertNotNull(session)
     }
@@ -19,7 +19,7 @@ class DandanplayDanmakuProviderTest {
     @Test
     fun testFetchMovieDanmakuSession() = runBlocking {
 
-        val session = provider.fetch("紫罗兰永恒花园 剧场版", "全集")
+        val session = provider.fetch("Violet Evergarden The Movie", "Complete Collection")
 
         assertNotNull(session)
     }

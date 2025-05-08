@@ -9,8 +9,8 @@ import com.lanlinju.animius.domain.model.Episode
 import com.lanlinju.animius.util.EPISODE_TABLE
 
 /**
- * [onDelete = ForeignKey.CASCADE] 当父表中的某一条记录被删除时，子表中所有引用该记录的行也会自动被删除。
- * [onUpdate = ForeignKey.CASCADE] 当父表中的某一条记录的主键被更新时，子表中所有引用该主键的外键也会自动更新为新的值。
+ * [onDelete = ForeignKey.CASCADE] When a record in the parent table is deleted, all rows in the child table that reference the record will also be automatically deleted.
+ * [onUpdate = ForeignKey.CASCADE] When the primary key of a record in the parent table is updated, all foreign keys in the child table that reference the primary key are automatically updated to the new value.
  */
 @Entity(
     tableName = EPISODE_TABLE,
@@ -31,7 +31,7 @@ data class EpisodeEntity(
     @ColumnInfo(name = "history_id") val historyId: Long,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "episode_url") val episodeUrl: String,
-    @ColumnInfo(name = "last_position") val lastPosition: Long = 0L, /* 记录上次视频播放的位置 */
+    @ColumnInfo(name = "last_position") val lastPosition: Long = 0L, /* Record the position of the last video playback*/
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis()
 ) {
     fun toEpisode(): Episode {

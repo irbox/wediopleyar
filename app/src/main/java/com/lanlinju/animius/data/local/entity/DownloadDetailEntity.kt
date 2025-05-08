@@ -25,14 +25,14 @@ data class DownloadDetailEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "download_detail_id") val downloadDetailId: Long = 0,
     @ColumnInfo(name = "download_id") val downloadId: Long,
-    @ColumnInfo(name = "title") val title: String, /* 剧集名 eg: 第01集 */
+    @ColumnInfo(name = "title") val title: String, /* Episode name eg: Episode 01*/
     @ColumnInfo(name = "img_url") val imgUrl: String,
-    @ColumnInfo(name = "drama_number") val dramaNumber: Int = 0, /* 用于集数排序 */
+    @ColumnInfo(name = "drama_number") val dramaNumber: Int = 0, /* Used for episode number sorting*/
     @ColumnInfo(name = "download_url") val downloadUrl: String,
-    @ColumnInfo(name = "path") val path: String, /* 保存的文件路径 */
+    @ColumnInfo(name = "path") val path: String, /* Saved file path*/
     @ColumnInfo(name = "download_size") val downloadSize: Long = 0, /* 同下 */
-    @ColumnInfo(name = "total_size") val totalSize: Long = 0, /* 如果是m3u8类型则是分片数量，其他文件表示字节数 */
-    @ColumnInfo(name = "file_size") val fileSize: Long = 0, /* 在文件下载成功后写入其大小 */
+    @ColumnInfo(name = "total_size") val totalSize: Long = 0, /* If it is m3u8 type, it is the number of fragments, other files indicate the number of bytes*/
+    @ColumnInfo(name = "file_size") val fileSize: Long = 0, /* Write the size of the file after it is downloaded successfully*/
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis()
 ) {
     fun toDownloadDetail(): DownloadDetail {

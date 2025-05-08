@@ -16,21 +16,21 @@ import javax.inject.Singleton
  * @see DanmakuProviderFactory
  */
 interface DanmakuProvider : AutoCloseable {
-    // 弹幕提供者的唯一标识符
+    // Unique identifier of the bullet comment provider
     val id: String
 
-    // 挂起函数，用于获取弹幕会话
+    // Suspend function, used to obtain the bullet chat session
     suspend fun fetch(subjectName: String, episodeName: String?): DanmakuSession?
 }
 
-interface DanmakuProviderFactory { // SPI 接口
+interface DanmakuProviderFactory { // SPI interface
     /**
      * @see DanmakuProvider.id
-     * 获取弹幕提供者的唯一标识符
+     * Get the unique identifier of the bullet comment provider
      */
     val id: String
 
-    // 创建一个新的弹幕提供者实例
+    // Create a new bullet message provider instance
     fun create(): DanmakuProvider
 }
 
@@ -40,13 +40,13 @@ class DandanplayDanmakuProvider @Inject constructor(
 ) : DanmakuProvider {
 
     companion object {
-        const val ID = "弹弹play"
+        const val ID = "DanmakuPlay"
     }
 
     override val id: String get() = ID
 
     private val dandanplayClient = DandanplayClient(client)
-    private val moviePattern = Regex("全集|HD|正片")
+    private val moviePattern = Regex("Complete Collection|HD|Featured Film")
     private val nonDigitRegex = Regex("\\D")
 
     override suspend fun fetch(
@@ -55,10 +55,10 @@ class DandanplayDanmakuProvider @Inject constructor(
         if (episodeName.isNullOrBlank()) return null
         val formattedEpisodeName = episodeName.let { name ->
             when {
-                moviePattern.containsMatchIn(name) -> "movie" // 剧场版
-                name.contains("第") -> name.replace(nonDigitRegex, "") // tv 第01集 -> 01
-                name.matches(Regex("\\d+")) -> name // girigiri tv的剧集只有数字
-                else -> return null // 只获取TV版和剧场版弹幕
+                moviePattern.containsMatchIn(name) -> "movie" // Movie version
+                name.contains("No.") -> name.replace(nonDigitRegex, "") // tv No.01set -> 01
+                name.matches(Regex("\\d+")) -> name // girigiri tv Episodes only have numbers
+                else -> return null // Only get TV version and movie version bullet screen
             }
         }
 
